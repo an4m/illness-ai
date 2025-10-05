@@ -1,0 +1,225 @@
+Project Requirements Document (PRD)
+
+Personal Healthcare Assistant Web App
+
+1. Overview
+
+The Personal Healthcare Assistant is a web-based triage tool designed to guide users through structured health checkups for 10 common diseases.
+
+It does not diagnose, but instead:
+
+Collects structured symptom information using SOCRATES + ICE frameworks.
+
+Routes users to a tailored question flow based on their initial disease selection.
+
+Triggers API-driven clarifiers for red-flag or unclear cases.
+
+Classifies outcomes using a RAG system (Red–Amber–Green).
+
+Generates a consultation code accessible via /emergency/[code] for urgent cases.
+
+Provides automated SMS follow-up after 12 hours for low-risk (GREEN) cases.
+
+2. Goals & Objectives
+
+Deliver a safe, user-friendly health triage experience.
+
+Encourage early detection of serious conditions (esp. cancer, cardiac, neurological).
+
+Provide clear next-step actions (999, 111, GP, or reassurance).
+
+Integrate follow-up monitoring to catch worsening symptoms.
+
+Protect user privacy and maintain trust.
+
+3. Target Users
+
+Adults (18+) with new or ongoing health concerns.
+
+Users seeking reassurance or advice before visiting healthcare services.
+
+Emergency service clinicians (secondary users) accessing summaries via consultation codes.
+
+4. Key Features
+4.1 Landing Page – 10 Common Disease Buttons
+
+The homepage presents 10 disease categories as buttons.
+Each button leads to a disease-specific 10–11 question flow.
+
+Chest Pain / Heart Concerns (Heart Disease)
+
+High Blood Pressure (Hypertension)
+
+Breathing Problems (Asthma / COPD)
+
+Stomach & Bowel Symptoms (GERD / IBS)
+
+Headache & Neurology (Migraine / Tension)
+
+Mood, Anxiety & Sleep (Mental Health)
+
+Back, Joint & Muscle Pain (MSK / Arthritis)
+
+Skin & Moles (Dermatology / Skin Cancer)
+
+Urinary & Kidney (UTI / Prostate / Stones)
+
+Diabetes & Blood Sugar (Type 2 / Prediabetes)
+
+⚠️ “Not sure? → General Checkup (GP)” option also available.
+
+4.2 Hidden 11-Step Checkup
+
+Based on SOCRATES (Site, Onset, Character, Radiation, Associations, Timing, Exacerbating/Relieving, Severity).
+
+Tailored per disease (e.g., Chest pain → radiation to arm/jaw; Skin → mole changes).
+
+ICE framework integrated:
+
+Ideas: “What do you think it might be?”
+
+Concerns: “How worried are you (1–5)?”
+
+Expectations: “What do you want from this checkup?”
+
+4.3 API-Driven Clarifiers
+
+After 11 core questions, answers are packaged into an API prompt:
+{ disease_type, demographics, SOCRATES answers, ICE answers, severity, red_flags }
+
+API may return up to 10 additional clarifying questions.
+
+Clarifiers run before final RAG outcome.
+
+4.4 RAG Risk System
+
+Final outcomes are categorized as:
+
+GREEN – “Everything looks good.”
+
+General lifestyle/health advice.
+
+12h SMS follow-up: “Have your symptoms improved? Reply YES/NO.”
+
+AMBER – “You may need further advice.”
+
+Call NHS 111.
+
+Book GP appointment soon.
+
+RED – “Urgent concern detected.”
+
+Call 999 immediately.
+
+Provide consultation code for emergency services.
+
+4.5 Emergency Code System
+
+Each consultation generates a unique alphanumeric code (e.g., ABC123).
+
+RED outcomes instruct: “Call 999 now. Share code ABC123.”
+
+Emergency clinicians can access full summary at:
+website.com/emergency/[code]
+
+Summary includes: timestamp, disease pack, key symptoms, severity, red flags, RAG outcome.
+
+4.6 Follow-Up Monitoring
+
+Only for GREEN outcomes.
+
+12h SMS: “Have your symptoms improved? Reply YES/NO.”
+
+YES → Case closed.
+
+NO → Escalate:
+
+Mild/no red flags → AMBER (111).
+
+Red flags/worsening → RED (999) with new code.
+
+5. Functional Requirements
+
+Landing page with 10 disease buttons (+ general GP fallback).
+
+Step-by-step questionnaire (11 core + API clarifiers).
+
+Dynamic branching based on symptoms and red flags.
+
+ICE integration before final summary.
+
+RAG triage engine with disease-specific rules.
+
+Emergency page /emergency/[code] for clinicians.
+
+SMS gateway integration for GREEN follow-up.
+
+6. Non-Functional Requirements
+
+Safety-first logic → default to AMBER/RED if uncertain.
+
+Accessibility → WCAG 2.1 AA compliant.
+
+Performance → load in <2s per step.
+
+Privacy → anonymized consultation codes, GDPR-compliant storage.
+
+Security → HTTPS, encrypted DB, audit logging for emergency page access.
+
+7. Technical Requirements
+
+Frontend: React (wizard-style questionnaire).
+
+Backend: Node.js/Express (API handling, RAG engine, code generation).
+
+Database: PostgreSQL (stores anonymized consultations + codes).
+
+SMS: Twilio or NHS-approved SMS provider.
+
+Hosting: AWS/Azure/Netlify (scalable, secure).
+
+Monitoring: Error tracking (Sentry), uptime monitoring.
+
+8. Roadmap
+
+Phase 1 – MVP
+
+Launch with 5 buttons (Chest, Breathing, Headache, Stomach, Urinary).
+
+Static RAG rules.
+
+Emergency code system.
+
+Phase 2
+
+Expand to all 10 disease buttons.
+
+API clarifiers.
+
+/emergency/[code] clinician pages.
+
+SMS follow-up for GREEN.
+
+Phase 3
+
+Multi-language support.
+
+AI-driven triage refinement.
+
+NHS/Telehealth integration.
+
+Media uploads (e.g., photos for skin).
+
+9. Risks & Mitigations
+
+False reassurance (GREEN) → Follow-up SMS + conservative thresholds.
+
+User anxiety (RED/AMBER) → Gentle, supportive wording + next-step clarity.
+
+Data misuse/privacy → Minimal data collection, encryption, anonymized codes.
+
+Too many landing page options → Include “Not sure → General GP” option.
+
+✅ This is now a full, end-to-end PRD.
+
+Would you like me to also mock up the exact 11 questions for each disease button (with 1–5 scales, yes/no, multiple choice) so your devs/designers can drop them straight into the flow?
