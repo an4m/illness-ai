@@ -21,8 +21,24 @@ interface TriageResponse {
 
 export async function POST(req: NextRequest) {
   try {
-    const body: TriageRequest = await req.json();
-    const { diseaseCategory, answers } = body;
+    const body = await req.json();
+
+    // Handle both debug page format and questionnaire format
+    let diseaseCategory: string;
+    let answers: Record<string, any>;
+
+    if (body.disease_type) {
+      // Debug page format
+      diseaseCategory = body.disease_type;
+      answers = {
+        ...body.SOCRATES_answers,
+        ...body.ICE_answers,
+      };
+    } else {
+      // Questionnaire format
+      diseaseCategory = body.diseaseCategory;
+      answers = body.answers;
+    }
 
     // Build the prompt from questionnaire answers
     const prompt = buildTriagePrompt(diseaseCategory, answers);
@@ -76,9 +92,9 @@ function buildTriagePrompt(diseaseCategory: string, answers: Record<string, any>
   };
 
   const iceData = {
-    ideas: answers.ice_ideas || 'Not specified',
-    concerns: answers.ice_concerns || 'Not specified',
-    expectations: answers.ice_expectations || 'Not specified',
+    ideas: answers.ideas || answers.ice_ideas || 'Not specified',
+    concerns: answers.concerns || answers.ice_concerns || 'Not specified',
+    expectations: answers.expectations || answers.ice_expectations || 'Not specified',
   };
 
   return `You are a medical triage AI assistant helping to classify patient symptoms using a RAG (Red-Amber-Green) system. This is NOT a diagnostic tool, but a triage system to determine urgency of care.
@@ -130,17 +146,24 @@ RED FLAG CRITERIA (must be RED):
 - Severe bleeding or trauma
 - Suicidal thoughts or severe mental health crisis
 
-AMBER CRITERIA:
-- Moderate severity (4-7/10) with concerning features
-- Symptoms worsening over hours/days
-- Patient highly concerned (concern level 4-5)
-- Unclear diagnosis requiring same-day assessment
+AMBER CRITERIA (requires same-day medical attention):
+- Moderate severity (5-7/10) with concerning features
+- Symptoms worsening rapidly over hours/days
+- Patient highly concerned (concern level 4-5) AND symptoms warrant concern
+- Unclear diagnosis requiring same-day professional assessment
+- Red flags present that don't meet RED criteria
 
-GREEN CRITERIA:
-- Mild symptoms (1-3/10)
-- Chronic/stable condition
-- Self-limiting illness
+GREEN CRITERIA (low-risk, self-care appropriate):
+- Mild symptoms (severity 1-4/10)
+- Gradual onset over days/weeks
+- Chronic/stable condition with no change
+- Self-limiting illness (minor injuries, mild infections, common ailments)
+- Clear causation (e.g., muscle strain after exercise, minor skin irritation)
 - No red flags or concerning features
+- Patient has reasonable self-management strategies already working
+- Symptoms improving or stable, not worsening
+
+IMPORTANT: Be appropriately cautious but not overly conservative. GREEN outcomes are valid when symptoms are genuinely mild, have clear benign causes, and are improving or stable with self-care. Many common ailments like minor muscle strains, mild anxiety, minor skin rashes, and mild aches are appropriate for GREEN classification.
 
 Respond ONLY with valid JSON. No additional text.`;
 }
