@@ -9,6 +9,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Progress } from '@/components/ui/progress';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -187,52 +189,58 @@ export default function Page({ params }: PageProps) {
   };
 
   return (
-    <div className='min-h-screen bg-gray-50 py-8 px-4'>
-      <div className='max-w-3xl mx-auto'>
-        {/* Progress bar */}
-        <div className='mb-8'>
-          <div className='flex justify-between items-center mb-2'>
-            <span className='text-sm font-medium text-gray-700'>
-              Question {currentQuestionIndex + 1} of {questions.length}
-            </span>
-            <span className='text-sm text-gray-600'>{Math.round(progress)}% Complete</span>
-          </div>
-          <Progress value={progress} />
-        </div>
+    <div className='min-h-screen bg-gray-50 flex flex-col'>
+      <Header />
 
-        {/* Question card */}
-        <Card>
-          <CardHeader>
-            <div className='mb-3'>
-              <span className='text-xs font-semibold text-blue-600 uppercase tracking-wide'>
-                {currentQuestion.framework} - {currentQuestion.component}
+      <div className='flex-1 py-8 px-4'>
+        <div className='max-w-3xl mx-auto'>
+          {/* Progress bar */}
+          <div className='mb-8'>
+            <div className='flex justify-between items-center mb-2'>
+              <span className='text-sm font-medium text-gray-700'>
+                Question {currentQuestionIndex + 1} of {questions.length}
               </span>
+              <span className='text-sm text-gray-600'>{Math.round(progress)}% Complete</span>
             </div>
-            <CardTitle className='text-3xl mb-3 text-gray-600'>{currentQuestion.question}</CardTitle>
-            <CardDescription className='text-base text-gray-400'>
-              Please answer as accurately as possible to help us understand your symptoms
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {renderQuestionInput(currentQuestion)}
+            <Progress value={progress} />
+          </div>
 
-            {/* Navigation buttons */}
-            <div className='flex justify-between mt-8 pt-6 border-t'>
-              <Button variant='outline' onClick={handleBack} type='button' className='text-gray-700'>
-                Back
-              </Button>
-              <Button onClick={handleNext} disabled={!isAnswered() || isSubmitting} type='button'>
-                {isSubmitting ? 'Analyzing...' : currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Next'}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+          {/* Question card */}
+          <Card>
+            <CardHeader>
+              <div className='mb-3'>
+                <span className='text-xs font-semibold text-blue-600 uppercase tracking-wide'>
+                  {currentQuestion.framework} - {currentQuestion.component}
+                </span>
+              </div>
+              <CardTitle className='text-3xl mb-3 text-gray-600'>{currentQuestion.question}</CardTitle>
+              <CardDescription className='text-base text-gray-400'>
+                Please answer as accurately as possible to help us understand your symptoms
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {renderQuestionInput(currentQuestion)}
 
-        {/* Helper text */}
-        <div className='mt-6 text-center'>
-          <p className='text-sm text-gray-600'>⚠️ This tool does not diagnose. It provides guidance on next steps based on your symptoms.</p>
+              {/* Navigation buttons */}
+              <div className='flex justify-between mt-8 pt-6 border-t'>
+                <Button variant='outline' onClick={handleBack} type='button' className='text-gray-700'>
+                  Back
+                </Button>
+                <Button onClick={handleNext} disabled={!isAnswered() || isSubmitting} type='button'>
+                  {isSubmitting ? 'Analyzing...' : currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Next'}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Helper text */}
+          <div className='mt-6 text-center'>
+            <p className='text-sm text-gray-600'>⚠️ This tool does not diagnose. It provides guidance on next steps based on your symptoms.</p>
+          </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

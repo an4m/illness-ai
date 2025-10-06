@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { CheckCircle, AlertTriangle, AlertCircle, Phone, Calendar, MessageSquare, Copy, Check } from 'lucide-react';
 import type { RAGStatus, RAGResults } from '@/types/rag';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function ResultsPage() {
   const router = useRouter();
@@ -127,10 +129,13 @@ export default function ResultsPage() {
   const Icon = current.icon;
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8'>
-      <div className='max-w-4xl mx-auto'>
-        {/* Result Card */}
-        <div className={`bg-white rounded-b-xl shadow-xl overflow-hidden border-t-8 ${current.borderColor}`}>
+    <div className='min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col'>
+      <Header />
+
+      <div className='flex-1 p-8'>
+        <div className='max-w-4xl mx-auto'>
+          {/* Result Card */}
+          <div className={`bg-white rounded-b-xl shadow-xl overflow-hidden border-t-8 ${current.borderColor}`}>
           {/* Header */}
           <div className={`${current.bgColor} p-8 border-b ${current.borderColor}`}>
             <div className='flex items-center mb-4'>
@@ -260,11 +265,14 @@ export default function ResultsPage() {
               </div>
             )}
           </div>
-        </div>
+          </div>
 
-        {/* Timestamp */}
-        <div className='mt-4 text-center text-sm text-gray-500'>Consultation completed: {new Date().toLocaleString('en-GB')}</div>
+          {/* Timestamp */}
+          <div className='mt-4 text-center text-sm text-gray-500'>Consultation completed: {new Date().toLocaleString('en-GB')}</div>
+        </div>
       </div>
+
+      <Footer />
     </div>
   );
 }
