@@ -50,7 +50,13 @@ export async function POST(req: NextRequest) {
       {
         error: 'Failed to process triage request',
         ragStatus: 'amber', // Default to amber on error for safety
-        advice: 'We encountered an issue processing your responses. Please call NHS 111 for advice.'
+        advice: 'We encountered an issue processing your responses. Please call NHS 111 for advice.',
+        reasoning: 'System error occurred during assessment',
+        urgencyLevel: 'same-day',
+        redFlags: [],
+        followUpRequired: true,
+        symptomSummary: 'We were unable to fully process your symptom information due to a technical issue.',
+        possibleDiagnosis: 'A healthcare professional should review your symptoms to provide proper assessment.',
       },
       { status: 500 }
     );

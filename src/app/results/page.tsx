@@ -157,7 +157,7 @@ export default function ResultsPage() {
           </div>
 
           {/* Symptom Summary Section */}
-          {triageData?.symptomSummary && triageData.symptomSummary !== 'Unable to generate summary' && (
+          {triageData?.symptomSummary && (
             <div className='p-6 bg-blue-50 border-b border-blue-200'>
               <h3 className='font-semibold text-blue-900 mb-3 flex items-center'>
                 <MessageSquare className='w-5 h-5 mr-2' />
@@ -168,7 +168,7 @@ export default function ResultsPage() {
           )}
 
           {/* Possible Diagnosis Section */}
-          {triageData?.possibleDiagnosis && triageData.possibleDiagnosis !== 'Unable to provide assessment' && (
+          {triageData?.possibleDiagnosis && (
             <div className='p-6 bg-gray-50 border-b border-gray-200'>
               <h3 className='font-semibold text-gray-900 mb-3'>Initial Diagnosis</h3>
               <p className='text-gray-700 leading-relaxed'>{triageData.possibleDiagnosis}</p>
