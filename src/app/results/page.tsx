@@ -32,7 +32,7 @@ export default function ResultsPage() {
       bgColor: 'bg-green-50',
       borderColor: 'border-green-200',
       title: 'Everything looks good',
-      subtitle: "Your symptoms don't indicate an urgent concern",
+      subtitle: "Your symptoms don&apos;t indicate an urgent concern",
       message: 'Based on your responses, your symptoms appear to be mild and manageable at home.',
       advice: [
         'Monitor your symptoms over the next 24-48 hours',
@@ -42,7 +42,7 @@ export default function ResultsPage() {
       ],
       followUp: {
         show: true,
-        text: "We'll send you an SMS in 12 hours to check if your symptoms have improved.",
+        text: "We&apos;ll send you an SMS in 12 hours to check if your symptoms have improved.",
       },
       action: {
         text: 'If symptoms worsen, return to this app or contact NHS 111',
@@ -56,12 +56,12 @@ export default function ResultsPage() {
       borderColor: 'border-amber-200',
       title: 'You may need further advice',
       subtitle: 'We recommend speaking to a healthcare professional',
-      message: "Your symptoms require professional assessment, though they don't appear immediately life-threatening.",
+      message: "Your symptoms require professional assessment, though they don&apos;t appear immediately life-threatening.",
       advice: [
         'Contact NHS 111 for medical advice within the next 24 hours',
         'Book a GP appointment as soon as possible',
         'Keep a symptom diary noting any changes',
-        "Don't ignore worsening symptoms",
+        "Don&apos;t ignore worsening symptoms",
       ],
       followUp: {
         show: false,
@@ -183,7 +183,7 @@ export default function ResultsPage() {
                 <div>
                   <h3 className='font-semibold text-blue-800 mb-2'>12-Hour Follow-Up</h3>
                   <p className='text-blue-700'>{current.followUp.text}</p>
-                  <p className='text-sm text-blue-600 mt-2'>Reply YES if improved, NO if symptoms worsen (we'll escalate to AMBER/RED if needed)</p>
+                  <p className='text-sm text-blue-600 mt-2'>Reply YES if improved, NO if symptoms worsen (we&apos;ll escalate to AMBER/RED if needed)</p>
                 </div>
               </div>
             </div>
