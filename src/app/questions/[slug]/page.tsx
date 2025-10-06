@@ -49,7 +49,7 @@ export default function Page({ params }: PageProps) {
       const newIndex = currentQuestionIndex - 1;
       setCurrentQuestionIndex(newIndex);
     } else {
-      console.log('Already at first question');
+      router.push('/');
     }
   };
 
@@ -185,7 +185,7 @@ export default function Page({ params }: PageProps) {
 
             {/* Navigation buttons */}
             <div className='flex justify-between mt-8 pt-6 border-t'>
-              <Button variant='outline' onClick={handleBack} disabled={currentQuestionIndex === 0} type='button' className='text-gray-700'>
+              <Button variant='outline' onClick={handleBack} type='button' className='text-gray-700'>
                 Back
               </Button>
               <Button onClick={handleNext} disabled={!isAnswered()} type='button'>
