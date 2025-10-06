@@ -1,4 +1,10 @@
+'use client';
+
+import { useState } from 'react';
+
 export default function Home() {
+  const [showMore, setShowMore] = useState(false);
+
   return (
     <main className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-white">
       {/* Header */}
@@ -6,7 +12,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white text-xl font-bold">H</span>
+              <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h3l2-6 4 12 2-6h3"/>
+              </svg>
             </div>
             <h2 className="text-xl font-bold text-slate-800">Illness.AI</h2>
           </div>
@@ -53,108 +61,12 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
               <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
                 <div className="flex items-start gap-4">
-                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">💓</div>
+                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🎗️</div>
                   <div>
                     <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
-                      Chest Pain / Heart
+                      Cancer Concerns
                     </h3>
-                    <p className="text-sm text-slate-600">Heart disease concerns</p>
-                  </div>
-                </div>
-              </button>
-
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
-                <div className="flex items-start gap-4">
-                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🩺</div>
-                  <div>
-                    <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
-                      High Blood Pressure
-                    </h3>
-                    <p className="text-sm text-slate-600">Hypertension checkup</p>
-                  </div>
-                </div>
-              </button>
-
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
-                <div className="flex items-start gap-4">
-                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🫁</div>
-                  <div>
-                    <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
-                      Breathing Problems
-                    </h3>
-                    <p className="text-sm text-slate-600">Asthma / COPD</p>
-                  </div>
-                </div>
-              </button>
-
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
-                <div className="flex items-start gap-4">
-                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🍽️</div>
-                  <div>
-                    <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
-                      Stomach & Bowel
-                    </h3>
-                    <p className="text-sm text-slate-600">GERD / IBS symptoms</p>
-                  </div>
-                </div>
-              </button>
-
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
-                <div className="flex items-start gap-4">
-                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🧠</div>
-                  <div>
-                    <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
-                      Headache & Neurology
-                    </h3>
-                    <p className="text-sm text-slate-600">Migraine / Tension</p>
-                  </div>
-                </div>
-              </button>
-
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
-                <div className="flex items-start gap-4">
-                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🌙</div>
-                  <div>
-                    <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
-                      Mood, Anxiety & Sleep
-                    </h3>
-                    <p className="text-sm text-slate-600">Mental health support</p>
-                  </div>
-                </div>
-              </button>
-
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
-                <div className="flex items-start gap-4">
-                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🦴</div>
-                  <div>
-                    <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
-                      Back, Joint & Muscle
-                    </h3>
-                    <p className="text-sm text-slate-600">MSK / Arthritis</p>
-                  </div>
-                </div>
-              </button>
-
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
-                <div className="flex items-start gap-4">
-                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🩹</div>
-                  <div>
-                    <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
-                      Skin & Moles
-                    </h3>
-                    <p className="text-sm text-slate-600">Dermatology / Skin cancer</p>
-                  </div>
-                </div>
-              </button>
-
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
-                <div className="flex items-start gap-4">
-                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">💧</div>
-                  <div>
-                    <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
-                      Urinary & Kidney
-                    </h3>
-                    <p className="text-sm text-slate-600">UTI / Prostate / Stones</p>
+                    <p className="text-sm text-slate-600">Screening & early detection</p>
                   </div>
                 </div>
               </button>
@@ -170,6 +82,158 @@ export default function Home() {
                   </div>
                 </div>
               </button>
+
+              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+                <div className="flex items-start gap-4">
+                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">💓</div>
+                  <div>
+                    <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
+                      Heart Disease & Chest Pain
+                    </h3>
+                    <p className="text-sm text-slate-600">Cardiovascular concerns</p>
+                  </div>
+                </div>
+              </button>
+
+              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+                <div className="flex items-start gap-4">
+                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🌙</div>
+                  <div>
+                    <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
+                      Depression & Anxiety
+                    </h3>
+                    <p className="text-sm text-slate-600">Mental health support</p>
+                  </div>
+                </div>
+              </button>
+
+              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+                <div className="flex items-start gap-4">
+                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🩺</div>
+                  <div>
+                    <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
+                      High Blood Pressure
+                    </h3>
+                    <p className="text-sm text-slate-600">Hypertension monitoring</p>
+                  </div>
+                </div>
+              </button>
+
+              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+                <div className="flex items-start gap-4">
+                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🤧</div>
+                  <div>
+                    <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
+                      Flu & Cold Symptoms
+                    </h3>
+                    <p className="text-sm text-slate-600">Respiratory infections</p>
+                  </div>
+                </div>
+              </button>
+
+              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+                <div className="flex items-start gap-4">
+                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🧠</div>
+                  <div>
+                    <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
+                      ADHD & Memory Issues
+                    </h3>
+                    <p className="text-sm text-slate-600">Focus & cognitive health</p>
+                  </div>
+                </div>
+              </button>
+
+              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+                <div className="flex items-start gap-4">
+                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🫁</div>
+                  <div>
+                    <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
+                      Asthma & Breathing
+                    </h3>
+                    <p className="text-sm text-slate-600">Respiratory conditions</p>
+                  </div>
+                </div>
+              </button>
+
+              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+                <div className="flex items-start gap-4">
+                  <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🦴</div>
+                  <div>
+                    <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
+                      Arthritis & Joint Pain
+                    </h3>
+                    <p className="text-sm text-slate-600">Musculoskeletal health</p>
+                  </div>
+                </div>
+              </button>
+            </div>
+
+            {/* More Conditions Button */}
+            <div className="mb-6">
+              <button
+                onClick={() => setShowMore(!showMore)}
+                className="w-full p-5 bg-white border-2 border-slate-300 rounded-xl hover:bg-slate-50 hover:border-blue-500 hover:shadow-md transition-all duration-300"
+              >
+                <div className="flex items-center justify-center gap-3">
+                  <span className="text-2xl">{showMore ? '➖' : '➕'}</span>
+                  <p className="font-semibold text-slate-800">
+                    {showMore ? 'Show Less' : 'More Health Conditions'}
+                  </p>
+                  <svg
+                    className={`w-5 h-5 text-slate-600 transition-transform duration-300 ${showMore ? 'rotate-180' : ''}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </button>
+            </div>
+
+            {/* Additional Conditions (collapsible) */}
+            <div
+              className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                showMore ? 'max-h-96 opacity-100 mb-6' : 'max-h-0 opacity-0'
+              }`}
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+                  <div className="flex items-start gap-4">
+                    <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">💧</div>
+                    <div>
+                      <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
+                        UTI & Kidney Stones
+                      </h3>
+                      <p className="text-sm text-slate-600">Urinary tract health</p>
+                    </div>
+                  </div>
+                </button>
+
+                <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+                  <div className="flex items-start gap-4">
+                    <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🤰</div>
+                    <div>
+                      <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
+                        Women's Health
+                      </h3>
+                      <p className="text-sm text-slate-600">PCOS / Menstrual issues</p>
+                    </div>
+                  </div>
+                </button>
+
+                <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+                  <div className="flex items-start gap-4">
+                    <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🩹</div>
+                    <div>
+                      <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
+                        Skin Conditions
+                      </h3>
+                      <p className="text-sm text-slate-600">Eczema / Rashes / Acne</p>
+                    </div>
+                  </div>
+                </button>
+              </div>
             </div>
 
             {/* General Option */}
