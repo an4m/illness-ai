@@ -20,6 +20,7 @@ export default function Page({ params }: PageProps) {
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, any>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const questions = getGeneralQuestions(slug);
   const currentQuestion = questions[currentQuestionIndex];
@@ -29,18 +30,50 @@ export default function Page({ params }: PageProps) {
     setAnswers(prev => ({ ...prev, [currentQuestion.id]: value }));
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      // For now, randomly assign a RAG status for testing
-      // Later this will be determined by the AI API
-      const ragStatuses: RAGStatus[] = ['green', 'amber', 'red'];
-      const randomStatus = ragStatuses[Math.floor(Math.random() * ragStatuses.length)];
+      // Call AI API for triage analysis
+      setIsSubmitting(true);
+      try {
+        const response = await fetch('/api/triage', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            diseaseCategory: slug,
+            answers: answers,
+          }),
+        });
 
-      localStorage.setItem('ragStatus', randomStatus);
-      localStorage.setItem('consultationAnswers', JSON.stringify(answers));
-      router.push('/results');
+        if (!response.ok) {
+          throw new Error('Failed to get triage assessment');
+        }
+
+        const triageResult = await response.json();
+
+        // Store results in localStorage for the results page
+        localStorage.setItem('ragStatus', triageResult.ragStatus);
+        localStorage.setItem('consultationAnswers', JSON.stringify(answers));
+        localStorage.setItem('triageResult', JSON.stringify(triageResult));
+
+        router.push('/results');
+      } catch (error) {
+        console.error('Triage error:', error);
+        // Default to amber for safety on error
+        localStorage.setItem('ragStatus', 'amber');
+        localStorage.setItem('consultationAnswers', JSON.stringify(answers));
+        localStorage.setItem('triageResult', JSON.stringify({
+          ragStatus: 'amber',
+          advice: 'We encountered an issue processing your responses. Please call NHS 111 for advice.',
+          reasoning: 'System error occurred during assessment',
+        }));
+        router.push('/results');
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -188,8 +221,8 @@ export default function Page({ params }: PageProps) {
               <Button variant='outline' onClick={handleBack} type='button' className='text-gray-700'>
                 Back
               </Button>
-              <Button onClick={handleNext} disabled={!isAnswered()} type='button'>
-                {currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Next'}
+              <Button onClick={handleNext} disabled={!isAnswered() || isSubmitting} type='button'>
+                {isSubmitting ? 'Analyzing...' : currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Next'}
               </Button>
             </div>
           </CardContent>

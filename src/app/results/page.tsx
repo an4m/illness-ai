@@ -9,9 +9,20 @@ export default function ResultsPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<RAGStatus>('green');
   const [codeCopied, setCodeCopied] = useState(false);
+  const [triageData, setTriageData] = useState<any>(null);
 
   useEffect(() => {
     const savedStatus = localStorage.getItem('ragStatus') as RAGStatus | null;
+    const savedTriageResult = localStorage.getItem('triageResult');
+
+    if (savedTriageResult) {
+      try {
+        setTriageData(JSON.parse(savedTriageResult));
+      } catch (error) {
+        console.error('Failed to parse triage result:', error);
+      }
+    }
+
     if (savedStatus && (savedStatus === 'green' || savedStatus === 'amber' || savedStatus === 'red')) {
       setActiveTab(savedStatus);
     } else {
@@ -20,9 +31,20 @@ export default function ResultsPage() {
     }
   }, []);
 
-  const copyCode = () => {
+  const copyCode = (code: string) => {
+    navigator.clipboard.writeText(code);
     setCodeCopied(true);
     setTimeout(() => setCodeCopied(false), 2000);
+  };
+
+  // Parse AI advice into array if it's a string
+  const parseAdvice = (advice: string | string[]): string[] => {
+    if (Array.isArray(advice)) return advice;
+    if (typeof advice === 'string') {
+      // Split by newlines or bullet points
+      return advice.split(/\n|•|-/).filter(item => item.trim().length > 0).map(item => item.trim());
+    }
+    return [];
   };
 
   const results: RAGResults = {
@@ -33,15 +55,15 @@ export default function ResultsPage() {
       borderColor: 'border-green-200',
       title: 'Everything looks good',
       subtitle: "Your symptoms don&apos;t indicate an urgent concern",
-      message: 'Based on your responses, your symptoms appear to be mild and manageable at home.',
-      advice: [
+      message: triageData?.advice || 'Based on your responses, your symptoms appear to be mild and manageable at home.',
+      advice: triageData?.advice ? parseAdvice(triageData.advice) : [
         'Monitor your symptoms over the next 24-48 hours',
         'Stay hydrated and get adequate rest',
         'Over-the-counter pain relief may help if needed',
         'Maintain a healthy diet and light exercise if comfortable',
       ],
       followUp: {
-        show: true,
+        show: triageData?.followUpRequired ?? true,
         text: "We&apos;ll send you an SMS in 12 hours to check if your symptoms have improved.",
       },
       action: {
@@ -56,8 +78,8 @@ export default function ResultsPage() {
       borderColor: 'border-amber-200',
       title: 'You may need further advice',
       subtitle: 'We recommend speaking to a healthcare professional',
-      message: "Your symptoms require professional assessment, though they don&apos;t appear immediately life-threatening.",
-      advice: [
+      message: triageData?.advice || "Your symptoms require professional assessment, though they don&apos;t appear immediately life-threatening.",
+      advice: triageData?.advice ? parseAdvice(triageData.advice) : [
         'Contact NHS 111 for medical advice within the next 24 hours',
         'Book a GP appointment as soon as possible',
         'Keep a symptom diary noting any changes',
@@ -81,15 +103,15 @@ export default function ResultsPage() {
       borderColor: 'border-red-200',
       title: 'Urgent concern detected',
       subtitle: 'Immediate medical attention required',
-      message: 'Your symptoms may indicate a serious condition requiring emergency care.',
-      advice: [
+      message: triageData?.advice || 'Your symptoms may indicate a serious condition requiring emergency care.',
+      advice: triageData?.advice ? parseAdvice(triageData.advice) : [
         'Stay calm and call 999 immediately',
         'Do not drive yourself to hospital',
         'Have someone stay with you if possible',
         'Keep your phone nearby for emergency services',
       ],
-      redFlags: ['Severe crushing chest pain radiating to arm/jaw', 'Difficulty breathing', 'Pain score: 8/10'],
-      emergencyCode: 'HC-247XK',
+      redFlags: triageData?.redFlags || ['Severe symptoms detected', 'Immediate medical attention required'],
+      emergencyCode: triageData?.emergencyCode || 'HC-247XK',
       followUp: {
         show: false,
       },
@@ -120,6 +142,26 @@ export default function ResultsPage() {
             </div>
             <p className='text-gray-700 text-lg'>{current.message}</p>
           </div>
+
+          {/* Symptom Summary Section */}
+          {triageData?.symptomSummary && (
+            <div className='p-6 bg-blue-50 border-b border-blue-200'>
+              <h3 className='font-semibold text-blue-900 mb-3 flex items-center'>
+                <MessageSquare className='w-5 h-5 mr-2' />
+                What you told us
+              </h3>
+              <p className='text-blue-800 leading-relaxed'>{triageData.symptomSummary}</p>
+            </div>
+          )}
+
+          {/* Possible Diagnosis Section */}
+          {triageData?.possibleDiagnosis && (
+            <div className='p-6 bg-gray-50 border-b border-gray-200'>
+              <h3 className='font-semibold text-gray-900 mb-3'>Initial Diagnosis</h3>
+              <p className='text-gray-700 leading-relaxed'>{triageData.possibleDiagnosis}</p>
+              <p className='text-sm text-gray-500 mt-3 italic'>⚠️ This is not a diagnosis. Only a qualified healthcare professional can diagnose your condition.</p>
+            </div>
+          )}
 
           {/* Red Flags (RED only) */}
           {activeTab === 'red' && current.redFlags && (
@@ -161,7 +203,7 @@ export default function ResultsPage() {
                   <p className='text-3xl font-mono font-bold text-center text-gray-800'>{current.emergencyCode}</p>
                 </div>
                 <button
-                  onClick={copyCode}
+                  onClick={() => copyCode(current.emergencyCode || '')}
                   className='px-4 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors flex items-center gap-2'
                 >
                   {codeCopied ? <Check className='w-5 h-5' /> : <Copy className='w-5 h-5' />}
