@@ -1,14 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { CheckCircle, AlertTriangle, AlertCircle, Phone, Calendar, MessageSquare, Copy, Check } from 'lucide-react';
 import type { RAGStatus, RAGResults } from '@/types/rag';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function ResultsPage() {
-  const router = useRouter();
   const [activeTab, setActiveTab] = useState<RAGStatus>('green');
   const [codeCopied, setCodeCopied] = useState(false);
   const [triageData, setTriageData] = useState<any>(null);
@@ -19,7 +17,9 @@ export default function ResultsPage() {
 
     if (savedTriageResult) {
       try {
-        setTriageData(JSON.parse(savedTriageResult));
+        const parsedData = JSON.parse(savedTriageResult);
+        console.log('Triage data:', parsedData); // Debug log
+        setTriageData(parsedData);
       } catch (error) {
         console.error('Failed to parse triage result:', error);
       }
@@ -43,8 +43,16 @@ export default function ResultsPage() {
   const parseAdvice = (advice: string | string[]): string[] => {
     if (Array.isArray(advice)) return advice;
     if (typeof advice === 'string') {
-      // Split by newlines or bullet points
-      return advice.split(/\n|•|-/).filter(item => item.trim().length > 0).map(item => item.trim());
+      // Split by newlines, bullet points at start of line, or asterisks at start of line
+      const lines = advice.split(/\n/).filter(item => item.trim().length > 0);
+      return lines.flatMap(line => {
+        // Split by bullet points or asterisks only at the start
+        const bulletMatch = line.match(/^[•\-*]\s*(.+)$/);
+        if (bulletMatch) {
+          return bulletMatch[1].trim();
+        }
+        return line.trim();
+      });
     }
     return [];
   };
@@ -149,7 +157,7 @@ export default function ResultsPage() {
           </div>
 
           {/* Symptom Summary Section */}
-          {triageData?.symptomSummary && (
+          {triageData?.symptomSummary && triageData.symptomSummary !== 'Unable to generate summary' && (
             <div className='p-6 bg-blue-50 border-b border-blue-200'>
               <h3 className='font-semibold text-blue-900 mb-3 flex items-center'>
                 <MessageSquare className='w-5 h-5 mr-2' />
@@ -160,11 +168,11 @@ export default function ResultsPage() {
           )}
 
           {/* Possible Diagnosis Section */}
-          {triageData?.possibleDiagnosis && (
+          {triageData?.possibleDiagnosis && triageData.possibleDiagnosis !== 'Unable to provide assessment' && (
             <div className='p-6 bg-gray-50 border-b border-gray-200'>
               <h3 className='font-semibold text-gray-900 mb-3'>Initial Diagnosis</h3>
               <p className='text-gray-700 leading-relaxed'>{triageData.possibleDiagnosis}</p>
-              <p className='text-sm text-gray-500 mt-3 italic'>⚠️ This is not a diagnosis. Only a qualified healthcare professional can diagnose your condition.</p>
+              <p className='text-sm text-gray-500 mt-3 italic'>⚠️ This is not a medical diagnosis. Only a qualified healthcare professional can diagnose your condition.</p>
             </div>
           )}
 

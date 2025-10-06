@@ -106,7 +106,7 @@ Based on these symptoms, provide a RAG classification with the following JSON st
 {
   "ragStatus": "red" | "amber" | "green",
   "reasoning": "Brief clinical reasoning for the classification",
-  "advice": "Clear, supportive advice for the patient based on RAG status",
+  "advice": "Clear, supportive advice for the patient based on RAG status. Format as bullet points separated by newlines, with each point starting with '* ' (asterisk and space). Each bullet point should be a complete, actionable recommendation.",
   "urgencyLevel": "immediate" | "same-day" | "routine" | "self-care",
   "redFlags": ["list", "of", "concerning", "symptoms", "if any"],
   "followUpRequired": true | false,
