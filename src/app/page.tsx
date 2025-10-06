@@ -215,7 +215,7 @@ export default function Home() {
                     <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🤰</div>
                     <div>
                       <h3 className="font-semibold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
-                        Women's Health
+                        Women&apos;s Health
                       </h3>
                       <p className="text-sm text-slate-600">PCOS / Menstrual issues</p>
                     </div>
