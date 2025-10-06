@@ -59,7 +59,7 @@ export default function Home() {
 
             {/* Disease Categories Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+              <a href="/questions/cancer" className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left block">
                 <div className="flex items-start gap-4">
                   <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🎗️</div>
                   <div>
@@ -69,9 +69,9 @@ export default function Home() {
                     <p className="text-sm text-slate-600">Screening & early detection</p>
                   </div>
                 </div>
-              </button>
+              </a>
 
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+              <a href="/questions/diabetes" className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left block">
                 <div className="flex items-start gap-4">
                   <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🩸</div>
                   <div>
@@ -81,9 +81,9 @@ export default function Home() {
                     <p className="text-sm text-slate-600">Type 2 / Prediabetes</p>
                   </div>
                 </div>
-              </button>
+              </a>
 
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+              <a href="/questions/chest-pain" className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left block">
                 <div className="flex items-start gap-4">
                   <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">💓</div>
                   <div>
@@ -93,9 +93,9 @@ export default function Home() {
                     <p className="text-sm text-slate-600">Cardiovascular concerns</p>
                   </div>
                 </div>
-              </button>
+              </a>
 
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+              <a href="/questions/mental-health" className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left block">
                 <div className="flex items-start gap-4">
                   <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🌙</div>
                   <div>
@@ -105,9 +105,9 @@ export default function Home() {
                     <p className="text-sm text-slate-600">Mental health support</p>
                   </div>
                 </div>
-              </button>
+              </a>
 
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+              <a href="/questions/blood-pressure" className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left block">
                 <div className="flex items-start gap-4">
                   <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🩺</div>
                   <div>
@@ -117,9 +117,9 @@ export default function Home() {
                     <p className="text-sm text-slate-600">Hypertension monitoring</p>
                   </div>
                 </div>
-              </button>
+              </a>
 
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+              <a href="/questions/respiratory" className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left block">
                 <div className="flex items-start gap-4">
                   <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🤧</div>
                   <div>
@@ -129,9 +129,9 @@ export default function Home() {
                     <p className="text-sm text-slate-600">Respiratory infections</p>
                   </div>
                 </div>
-              </button>
+              </a>
 
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+              <a href="/questions/cognitive" className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left block">
                 <div className="flex items-start gap-4">
                   <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🧠</div>
                   <div>
@@ -141,9 +141,9 @@ export default function Home() {
                     <p className="text-sm text-slate-600">Focus & cognitive health</p>
                   </div>
                 </div>
-              </button>
+              </a>
 
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+              <a href="/questions/asthma" className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left block">
                 <div className="flex items-start gap-4">
                   <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🫁</div>
                   <div>
@@ -153,9 +153,9 @@ export default function Home() {
                     <p className="text-sm text-slate-600">Respiratory conditions</p>
                   </div>
                 </div>
-              </button>
+              </a>
 
-              <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+              <a href="/questions/joint-pain" className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left block">
                 <div className="flex items-start gap-4">
                   <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🦴</div>
                   <div>
@@ -165,7 +165,7 @@ export default function Home() {
                     <p className="text-sm text-slate-600">Musculoskeletal health</p>
                   </div>
                 </div>
-              </button>
+              </a>
             </div>
 
             {/* More Conditions Button */}
@@ -198,7 +198,7 @@ export default function Home() {
               }`}
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+                <a href="/questions/urinary" className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left block">
                   <div className="flex items-start gap-4">
                     <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">💧</div>
                     <div>
@@ -208,9 +208,9 @@ export default function Home() {
                       <p className="text-sm text-slate-600">Urinary tract health</p>
                     </div>
                   </div>
-                </button>
+                </a>
 
-                <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+                <a href="/questions/womens-health" className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left block">
                   <div className="flex items-start gap-4">
                     <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🤰</div>
                     <div>
@@ -220,9 +220,9 @@ export default function Home() {
                       <p className="text-sm text-slate-600">PCOS / Menstrual issues</p>
                     </div>
                   </div>
-                </button>
+                </a>
 
-                <button className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left">
+                <a href="/questions/skin" className="group p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 text-left block">
                   <div className="flex items-start gap-4">
                     <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">🩹</div>
                     <div>
@@ -232,18 +232,18 @@ export default function Home() {
                       <p className="text-sm text-slate-600">Eczema / Rashes / Acne</p>
                     </div>
                   </div>
-                </button>
+                </a>
               </div>
             </div>
 
             {/* General Option */}
             <div className="max-w-2xl mx-auto">
-              <button className="w-full p-5 bg-slate-100 border border-slate-300 rounded-xl hover:bg-slate-200 hover:border-slate-400 hover:shadow-md transition-all duration-300">
+              <a href="/questions/general" className="w-full p-5 bg-slate-100 border border-slate-300 rounded-xl hover:bg-slate-200 hover:border-slate-400 hover:shadow-md transition-all duration-300 block">
                 <div className="flex items-center justify-center gap-3">
                   <span className="text-2xl">❓</span>
                   <p className="font-semibold text-slate-800">Not sure? Start with a General Checkup (GP)</p>
                 </div>
-              </button>
+              </a>
             </div>
           </div>
         </div>
